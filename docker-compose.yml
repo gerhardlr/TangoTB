@@ -56,6 +56,26 @@ services:
       - "2"
       - -ORBendPoint
       - giop:tcp::10000
+  tangotestds:
+    networks:
+      - basictango_tango_network
+    #build:      
+    #  context: ./tango-9.2.5a
+    #  dockerfile: Dockerfile.base
+    image: gerhardlr/tango_base:latest
+    container_name: tangotestds
+    hostname: tangotestds
+    #depends_on:
+    #  - tangodb
+    environment:
+      - TANGO_HOST=databaseds:10000 
+    entrypoint:
+      - /usr/local/bin/wait-for-it.sh
+      - tangodb:3306
+      - --timeout=30
+      - --strict
+      - --
+      - TangoTest test
 networks:
   tango_network:
     driver: bridge
