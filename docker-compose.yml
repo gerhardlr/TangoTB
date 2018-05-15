@@ -1,12 +1,6 @@
 # 
 # Docker compose file for TANGO database and database device server
 #
-# Defines:
-#   - tangodb: MariaDB database with TANGO schema
-#   - databaseds: TANGO database device server
-#
-# Requires:
-#   - None
 #
 version: '2'
 volumes:
@@ -58,7 +52,7 @@ services:
       - giop:tcp::10000
   tangotestds:
     networks:
-      - basictango_tango_network
+      - tango_network
     #build:      
     #  context: ./tango-9.2.5a
     #  dockerfile: Dockerfile.base
